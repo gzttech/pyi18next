@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pyi18next"
+version = "0.0.1"
+readme = 'README.md'
+description = "A Python implementation of i18next."
+authors = ["Gongziting Tech Ltd."]
+license = "MIT"
+homepage = "https://github.com/gzttech/pyi18next"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+babel = "^2.14.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
