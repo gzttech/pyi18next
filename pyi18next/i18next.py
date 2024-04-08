@@ -97,9 +97,10 @@ class I18next:
         key_info = self.get_key_info(key, **kwargs)
         (lng, ns) = self.resolve_lng_ns(key_info, **kwargs)
         translation = self.resolve_translation(lng, ns)
-        print(f'{key_info=}, {kwargs=}')
         if translation:
-            ret = self.translate.translate_value(translation.get(key_info['key']), **kwargs)
+            ret = self.translate.translate_value(
+                utility.get_deep_value(translation, key_info['deep']),
+                **kwargs)
         if ret is None and subs:
             ret = subs[0]
         return ret

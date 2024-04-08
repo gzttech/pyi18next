@@ -33,6 +33,9 @@ class TestTranslate:
     def test_base(self):
         assert i18n.t('key') == 'value'
 
+    def test_deep(self):
+        assert i18n.t('object.key') == 'value'
+
     def test_default(self):
         assert i18n.t('keyinexisted', 'default value') == 'default value'
 
