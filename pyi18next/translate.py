@@ -63,12 +63,10 @@ class Translate:
              json_data = json.loads(json_data)
         else:
             json_data = {}
-        print(identifier, json_data)
         return self._i18next.t(identifier, **json_data)
 
     def translate_str(self, value, **kwargs):
         def _sub_replace(mo):
-            print(mo.groupdict())
             if mo.group('itpl'):
                 return self.handle_itpl(mo, **kwargs)
             elif mo.group('nest'):
