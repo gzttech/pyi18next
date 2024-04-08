@@ -53,7 +53,6 @@ class Translate:
         func_list = mo.group('func_list')
         if func_list:
             func_list = self.parse_func(func_list)
-        print(identifier, func_list)
         value = kwargs.get(identifier)
         return value
     
