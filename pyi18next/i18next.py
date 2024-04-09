@@ -27,6 +27,7 @@ class I18next:
                        plural_rules=None,
                        return_objects=False,
                        join_arrays=None,
+                       append_namespace_to_cimode=False,
                        **options):
         self._options.update({
             'resources': resources,
@@ -41,6 +42,7 @@ class I18next:
             'plural_rules': plural_rules,
             'return_objects': return_objects,
             'join_arrays': join_arrays,
+            'append_namespace_to_cimode': append_namespace_to_cimode,
             **options})
         if self._options.get('plural_rules'):
             self._plural_func = utility.get_plural_func(self._options['plural_rules'])
@@ -92,10 +94,18 @@ class I18next:
         ret['key'] = key
         return ret
 
+    def handle_cimode(self, key, ns, **kwargs):
+        if self._options.get('append_namespace_to_cimode')\
+                or kwargs.get('append_namespace_to_cimode'):
+            return f'{ns}:{key}'
+        return key
+
     def t(self, key, *subs, **kwargs):
         ret = None
         key_info = self.get_key_info(key, **kwargs)
         (lng, ns) = self.resolve_lng_ns(key_info, **kwargs)
+        if lng == 'cimode':
+            return self.handle_cimode(key, ns, **kwargs)
         translation = self.resolve_translation(lng, ns)
         if translation:
             ret = self.translate.translate_value(

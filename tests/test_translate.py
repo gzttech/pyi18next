@@ -39,6 +39,10 @@ class TestTranslate:
     def test_default(self):
         assert i18n.t('keyinexisted', 'default value') == 'default value'
 
+    def test_cimode(self):
+        assert i18n.t('key', lng='cimode') == 'key'
+        assert i18n.t('key', lng='cimode', append_namespace_to_cimode=True) == 'translation:key'
+
     def test_special(self):
         assert i18n.t('key', ns='special') == 'special value'
         assert i18n.t('special:key') == 'special value'
