@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyi18next"
-version = "0.0.1"
+version = "0.0.2"
 readme = 'README.md'
 description = "A Python implementation of i18next."
 authors = ["Gongziting Tech Ltd."]
