@@ -36,6 +36,7 @@ class  Backend:
         '''
         ret = {}
         for lng in lng_list:
+            ret.setdefault(lng, {})
             for ns in ns_list:
-                ret[(lng, ns)] = self.read_one(lng, ns)
+                ret[lng][ns] = self.read_one(lng, ns)
         return ret
