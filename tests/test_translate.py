@@ -16,6 +16,9 @@ RESOURCES = {
             'keyPlural_one': 'one',
             'keyPlural_two': 'two',
             'keyPlural_other': 'other',
+            'numberFormat': "Number: {{val, number(format: '0.00')}}",
+            'datesFormat': "Datetime: {{val, datetime(format: 'yyyy-MM-dd')}}",
+            'listFormat': "List: {{val, list(style: 'or')}}",
         },
         'special': { 
             'key': 'special value',
@@ -72,3 +75,9 @@ class TestTranslate:
         assert i18n.t('keyPlural', count=1) == 'one'
         assert i18n.t('keyPlural', count=2) == 'two'
         assert i18n.t('keyPlural', count=3) == 'other'
+
+    def test_format(self):
+        assert i18n.t('numberFormat', val=1024) == 'Number: 1024.00'
+        import datetime
+        assert i18n.t('datesFormat', val=datetime.datetime(2000,1,1)) == 'Datetime: 2000-01-01'
+        assert i18n.t('listFormat', val=[1, 2, 3, 4]) == 'List: 1, 2, 3, or 4'

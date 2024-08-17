@@ -1,5 +1,6 @@
 import re
 import json
+from . import functions
 
 
 class Translate:
@@ -15,12 +16,12 @@ class Translate:
         nest_delim_end = re.escape(')')
         comma_delim = r'(?:\s*,\s*)'  # comma with optional spaces
         json_pattern = r'(?P<json>\{.*?\})?'
-        param_name = r'(?:\s*;?\s*[\w]+)'
-        param_format = r'(?: (?:[\d]+) | (?:\'.+\') | (?:[\d]+\.[\d]*))'
-        param_default = fr'(?:\s*:\s*{param_format})?'
-        func_pattern = fr'(?:(?:\w+)\((?P<params>(?:{param_name}{param_default})*)\))'
-        param_pairs = fr'(?:{param_name}{param_default})'
-        func_pattern_named = fr'(?:(?P<func_name>\w+)\((?P<params>(?:{param_name}{param_default})*)\))'
+        param_name = r'(?:\s*;?\s*(?P<param_name>[\w]+))'
+        param_format = r'(?: (?:[\d]+?) | (?:\'.+?\') | (?:[\d]+\.[\d]*)) | (?: (true|false) )'
+        param_default = fr'(?:\s*:\s*(?P<param_default>{param_format}))?'
+        param_pairs = fr'(?:\s*,?\s*{param_name}{param_default})'
+        func_pattern = fr'(?:(?:\w+)\((?P<params>(?:{param_pairs})*)\))'
+        func_pattern_named = fr'(?:(?P<func_name>\w+)\((?P<params>(?:{param_pairs})*)\))'
         func_list_pattern = fr'(?P<func_list>(?:{comma_delim}{func_pattern})*)'
         identifier = r'[\w\.]+'
         self.pattern_params = re.compile(param_pairs, re.VERBOSE)
@@ -51,9 +52,11 @@ class Translate:
     def handle_itpl(self, mo, **kwargs):
         identifier = mo.group('itpl')
         func_list = mo.group('func_list')
+        value = kwargs.get(identifier)
         if func_list:
             func_list = self.parse_func(func_list)
-        value = kwargs.get(identifier)
+            for func_desc in func_list:
+                value = functions.apply_function(value, func_desc)
         return value
     
     def handle_nest(self, mo, **kwargs):
