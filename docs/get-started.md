@@ -20,6 +20,8 @@ i18n = pyi18next.i18next.I18next(
 )
 ```
 
+The translations are defined as key-value pairs in the `resources.en.tranlation` dictionary, where the language is `en` and the namespace is `translation`.
+
 Then we can use `i18n.t` function to get translate:
 
 ```python

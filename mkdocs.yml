@@ -1,1 +1,3 @@
 site_name: pyi18next
+theme:
+  name: readthedocs

@@ -3,5 +3,5 @@
 Install pyi18next using pip
 
 ```
-python -m pip install pyi18next
+python -m pip install -U pyi18next
 ```
