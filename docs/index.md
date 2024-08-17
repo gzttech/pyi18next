@@ -7,4 +7,4 @@ pyi18next is a Python version of [i18next](https://github.com/i18next/i18next), 
 - [Get Started](/get-started/)
 - [Installation](/install/)
 - Usage
-  - [Load Translation Files](/usage/load/)
+    - [Load Translation Files](/usage/load/)
